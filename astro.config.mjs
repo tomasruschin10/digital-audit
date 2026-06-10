@@ -6,5 +6,4 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
   integrations: [tailwind()],
-  server: { port: 3000 },
 });
