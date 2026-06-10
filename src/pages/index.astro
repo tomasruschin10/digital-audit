@@ -12,10 +12,10 @@
   <meta name="description" content="Pegá la URL de tu empresa y en 60 segundos analizamos toda tu presencia digital: Google, publicidad en Meta, conversión y medición. Diagnóstico gratuito." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; }
-    body { font-family: 'Inter', system-ui, sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif; }
     .screen.hidden { display: none !important; }
 
     @keyframes fadeUp {
@@ -37,10 +37,10 @@
     .hero-glow {
       background:
         radial-gradient(ellipse 70% 50% at 50% 100%,
-          rgba(249,115,22,0.08) 0%,
+          rgba(91,61,245,0.07) 0%,
           transparent 65%),
         radial-gradient(ellipse 90% 60% at 50% 30%,
-          rgba(99,102,241,0.13) 0%,
+          rgba(139,92,246,0.09) 0%,
           transparent 70%);
     }
 
@@ -48,32 +48,53 @@
     .hero-accent-line {
       background: linear-gradient(90deg,
         transparent 0%,
-        rgba(249,115,22,0.5) 30%,
-        rgba(99,102,241,0.5) 70%,
+        rgba(91,61,245,0.5) 50%,
         transparent 100%);
     }
 
     /* Separadores de sección en resultados */
-    .section-divider { border-top: 1px solid rgba(255,255,255,0.06); }
+    .section-divider { border-top: 1px solid #e5e7eb; }
 
-    /* Scroll margin: los anchors quedan por debajo del nav sticky (~48px) */
-    [id^="sec-"] { scroll-margin-top: 52px; }
-
-    /* Nav interna de resultados */
-    .results-nav-link {
-      transition: color 0.15s ease, background-color 0.15s ease;
+    /* Campos del formulario — estados de validación */
+    .field-input {
+      border-color: #d1d5db;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
-    .results-nav-link.is-active {
-      color: #ffffff;
-      background-color: rgba(255, 255, 255, 0.07);
+    .field-input:focus {
+      border-color: rgba(91,61,245,0.7);
+      box-shadow: 0 0 0 3px rgba(91,61,245,0.15);
+    }
+    .field-input.is-invalid {
+      border-color: rgba(239,68,68,0.7) !important;
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.12) !important;
+    }
+    .field-input.is-valid {
+      border-color: #059669;
+      box-shadow: 0 0 0 3px rgba(5,150,105,0.10);
     }
 
-    /* Floating CTA — visibilidad controlada con .cta-hidden */
-    #floating-cta { transition: opacity 0.25s ease, visibility 0.25s; }
-    .cta-hidden    { opacity: 0; visibility: hidden; }
+    /* Sticky CTA — solo visible en pantalla de resultados */
+    #sticky-cta { transition: opacity 0.25s ease, visibility 0.25s, transform 0.25s ease; }
+    #sticky-cta.cta-hidden { opacity: 0; visibility: hidden; transform: translateY(12px); }
+
+    /* Área cards colapsables — details/summary */
+    details.area-card > summary { list-style: none; cursor: pointer; }
+    details.area-card > summary::-webkit-details-marker { display: none; }
+    details.area-card > summary::marker { display: none; }
+    .area-chevron { transition: transform 0.2s ease; }
+    details.area-card[open] .area-chevron { transform: rotate(180deg); }
+    details.area-card[open] .area-expand-hint { display: none; }
+
+    /* CTA principal en sec-agenda — animación de pulso sutil en el botón blanco */
+    @keyframes pulse-cta {
+      0%, 100% { box-shadow: 0 4px 20px rgba(255,255,255,0.20), 0 2px 8px rgba(255,255,255,0.12); }
+      50%       { box-shadow: 0 6px 36px rgba(255,255,255,0.55), 0 2px 14px rgba(255,255,255,0.30); }
+    }
+    .cta-pulse-btn { animation: pulse-cta 2.8s ease-in-out infinite; }
+    .cta-pulse-btn:hover { animation: none; }
   </style>
 </head>
-<body class="bg-[#060B14] text-white min-h-screen antialiased">
+<body class="bg-[#f8f7ff] text-[#1e1b4b] min-h-screen antialiased">
 
   <!-- ═══════════════════════════════════════════════════════════════════════
        PANTALLA 1 — LANDING
@@ -83,15 +104,15 @@
     <!-- Nav -->
     <nav class="px-5 py-4 flex items-center justify-between max-w-5xl mx-auto w-full">
       <div class="flex items-center gap-2.5">
-        <div class="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+        <div class="w-7 h-7 rounded-lg bg-[#5b3df5] flex items-center justify-center shadow-lg shadow-[#5b3df5]/30">
           <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
           </svg>
         </div>
-        <span class="font-bold text-sm tracking-tight">GrowthAudit</span>
+        <span class="font-bold text-sm tracking-tight">Zimba</span>
       </div>
-      <span class="text-xs text-slate-500 hidden sm:block">
-        Una herramienta de <span class="text-slate-300 font-medium">tu agencia</span>
+      <span class="text-xs text-gray-500 hidden sm:block">
+        Diagnóstico de presencia digital
       </span>
     </nav>
 
@@ -101,11 +122,11 @@
 
       <!-- Badge -->
       <div class="inline-flex items-center gap-2.5
-                  bg-gradient-to-r from-indigo-500/10 to-orange-500/10
-                  border border-white/10
+                  bg-violet-50
+                  border border-violet-200
                   rounded-full px-4 py-1.5 text-xs font-semibold mb-2 sm:mb-3
-                  text-slate-300 tracking-wide">
-        <span class="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse block flex-shrink-0"></span>
+                  text-violet-700 tracking-wide">
+        <span class="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse block flex-shrink-0"></span>
         Diagnóstico de presencia digital · 60 segundos · Sin registro
       </div>
 
@@ -115,13 +136,13 @@
       <!-- H1 — mobile: 1.35rem con quiebres manuales para evitar líneas sueltas -->
       <h1 class="text-[1.35rem] sm:text-[2.4rem] md:text-[2.875rem] font-black leading-[1.15] sm:leading-[1.1] tracking-tight w-full max-w-[62rem] mb-2 sm:mb-3">
         Tu negocio puede<br class="sm:hidden" /> vender más.<br />
-        <span class="bg-gradient-to-r from-orange-400 via-amber-400 to-orange-300 bg-clip-text text-transparent">
+        <span class="bg-gradient-to-r from-[#5b3df5] via-violet-500 to-purple-500 bg-clip-text text-transparent">
           Te mostramos<br class="sm:hidden" /> exactamente cómo.
         </span>
       </h1>
 
       <!-- Subtítulo -->
-      <p class="text-slate-400 text-sm sm:text-base max-w-xl mb-5 sm:mb-6 leading-snug">
+      <p class="text-gray-500 text-sm sm:text-base max-w-xl mb-5 sm:mb-6 leading-snug">
         Pegá tu URL y analizamos toda tu presencia digital: Google, publicidad, conversión y medición.
       </p>
 
@@ -129,7 +150,7 @@
       <div class="w-full max-w-[600px]">
         <div class="flex flex-col sm:flex-row gap-3">
           <div class="relative flex-1">
-            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" />
               </svg>
@@ -140,43 +161,43 @@
               inputmode="url"
               placeholder="tuempresa.com"
               autocomplete="url"
-              class="w-full h-[60px] bg-slate-800/80 border border-slate-700/70
-                     rounded-2xl pl-12 pr-4 text-white placeholder-slate-500
-                     focus:outline-none focus:border-indigo-500/80 focus:ring-2 focus:ring-indigo-500/25
-                     transition text-[16px]"
+              class="w-full h-[60px] bg-white border border-gray-200
+                     rounded-2xl pl-12 pr-4 text-gray-900 placeholder-gray-400
+                     focus:outline-none focus:border-[#5b3df5] focus:ring-2 focus:ring-[#5b3df5]/20
+                     transition text-[16px] shadow-sm"
             />
           </div>
           <button
             id="btn-analizar"
-            class="h-[60px] bg-orange-500 hover:bg-orange-400 active:scale-[0.98]
+            class="h-[60px] bg-[#5b3df5] hover:bg-[#4c2ee0] active:scale-[0.98]
                    text-white font-black px-8 rounded-2xl transition-all duration-150
                    whitespace-nowrap text-[15px] tracking-tight
-                   shadow-xl shadow-orange-500/35 hover:shadow-orange-500/55
+                   shadow-xl shadow-[#5b3df5]/30 hover:shadow-[#5b3df5]/50
                    hover:-translate-y-0.5 sm:w-auto w-full"
           >
             Mostrame mis oportunidades →
           </button>
         </div>
-        <p id="landing-error" class="text-red-400 text-xs mt-2.5 hidden text-left pl-1">
+        <p id="landing-error" class="text-red-600 text-xs mt-2.5 hidden text-left pl-1">
           Ingresá una URL válida (ej: tuempresa.com)
         </p>
       </div>
 
       <!-- Social proof -->
-      <div class="mt-4 sm:mt-7 flex flex-col sm:flex-row items-center gap-3 text-sm text-slate-500">
+      <div class="mt-4 sm:mt-7 flex flex-col sm:flex-row items-center gap-3 text-sm text-gray-500">
         <div class="flex -space-x-2">
-          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-600 border-2 border-[#060B14] flex items-center justify-center text-xs font-bold text-white">M</div>
-          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 border-2 border-[#060B14] flex items-center justify-center text-xs font-bold text-white">J</div>
-          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 border-2 border-[#060B14] flex items-center justify-center text-xs font-bold text-white">S</div>
-          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 border-2 border-[#060B14] flex items-center justify-center text-xs font-bold text-white">R</div>
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-600 border-2 border-[#f8f7ff] flex items-center justify-center text-xs font-bold text-white">M</div>
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 border-2 border-[#f8f7ff] flex items-center justify-center text-xs font-bold text-white">J</div>
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 border-2 border-[#f8f7ff] flex items-center justify-center text-xs font-bold text-white">S</div>
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 border-2 border-[#f8f7ff] flex items-center justify-center text-xs font-bold text-white">R</div>
         </div>
-        <span>Más de <strong class="text-slate-300">200 empresas</strong> ya analizaron su sitio</span>
+        <span>Más de <strong class="text-gray-900">200 empresas</strong> ya analizaron su sitio</span>
       </div>
     </div>
 
     <!-- Footer strip -->
-    <div class="border-t border-slate-800/60 py-4 px-5">
-      <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs text-slate-600">
+    <div class="border-t border-gray-200 py-4 px-5">
+      <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs text-gray-500">
         <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-orange-500 block"></span>Publicidad paga</span>
         <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-indigo-500 block"></span>Posicionamiento en Google</span>
         <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-500 block"></span>Captación de leads</span>
@@ -194,7 +215,7 @@
     <div class="w-full max-w-md fade-up">
 
       <!-- Volver -->
-      <button id="btn-back-landing" class="flex items-center gap-1.5 text-slate-500 hover:text-white text-sm mb-8 transition-colors group">
+      <button id="btn-back-landing" class="flex items-center gap-1.5 text-gray-500 hover:text-gray-900 text-sm mb-8 transition-colors group">
         <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
         </svg>
@@ -202,70 +223,96 @@
       </button>
 
       <!-- URL seleccionada -->
-      <div class="bg-slate-800/50 border border-slate-700/50 rounded-xl px-4 py-3 flex items-center gap-3 mb-8">
-        <div class="w-8 h-8 rounded-lg bg-indigo-500/15 flex items-center justify-center flex-shrink-0">
-          <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <div class="bg-white border border-gray-200 rounded-xl px-4 py-3 flex items-center gap-3 mb-8 shadow-sm">
+        <div class="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center flex-shrink-0">
+          <svg class="w-4 h-4 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" />
           </svg>
         </div>
         <div class="min-w-0 flex-1">
-          <p class="text-[11px] text-slate-500 mb-0.5 uppercase tracking-wider">Vamos a analizar</p>
-          <p id="form-url-display" class="text-sm font-semibold text-white truncate"></p>
+          <p class="text-[11px] text-gray-500 mb-0.5 uppercase tracking-wider">Vamos a analizar</p>
+          <p id="form-url-display" class="text-sm font-semibold text-gray-900 truncate"></p>
         </div>
-        <span class="text-[11px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/20 rounded-full px-2.5 py-0.5 font-medium flex-shrink-0">Lista</span>
+        <span class="text-[11px] bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full px-2.5 py-0.5 font-medium flex-shrink-0">Lista</span>
       </div>
 
       <!-- Título -->
       <h2 class="text-2xl sm:text-3xl font-black mb-2">Un paso más</h2>
-      <p class="text-slate-400 text-sm mb-7 leading-relaxed">
+      <p class="text-gray-500 text-sm mb-7 leading-relaxed">
         Te mostramos el informe ahora mismo y te explicamos qué significa para tu negocio.
       </p>
 
       <!-- Form -->
       <form id="lead-form" novalidate class="space-y-4">
+
+        <!-- Nombre -->
         <div>
-          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5" for="input-nombre">
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5" for="input-nombre">
             Nombre completo
           </label>
-          <input
-            id="input-nombre" type="text" name="nombre" placeholder="Juan García"
-            autocomplete="name" required
-            class="w-full h-12 bg-slate-800/70 border border-slate-700/60 rounded-xl px-4 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/70 focus:ring-2 focus:ring-indigo-500/20 transition text-sm"
-          />
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5" for="input-email">
-            Email de trabajo
-          </label>
-          <input
-            id="input-email" type="email" name="email" placeholder="juan@tuempresa.com"
-            autocomplete="email" required
-            class="w-full h-12 bg-slate-800/70 border border-slate-700/60 rounded-xl px-4 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/70 focus:ring-2 focus:ring-indigo-500/20 transition text-sm"
-          />
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5" for="input-empresa">
-            Empresa
-          </label>
-          <input
-            id="input-empresa" type="text" name="empresa" placeholder="Acme SA"
-            autocomplete="organization" required
-            class="w-full h-12 bg-slate-800/70 border border-slate-700/60 rounded-xl px-4 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/70 focus:ring-2 focus:ring-indigo-500/20 transition text-sm"
-          />
+          <div class="relative">
+            <input
+              id="input-nombre" type="text" name="nombre" placeholder="Juan García"
+              autocomplete="name"
+              class="field-input w-full h-12 bg-white border border-gray-200 rounded-xl px-4 pr-10 text-gray-900 placeholder-gray-400 focus:outline-none transition text-sm shadow-sm"
+            />
+            <span class="field-ok absolute right-3 top-1/2 -translate-y-1/2 hidden text-emerald-600">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+            </span>
+          </div>
+          <p class="field-error text-red-600 text-xs mt-1.5 hidden">Ingresá tu nombre completo.</p>
         </div>
 
-        <p id="form-error" class="text-red-400 text-xs hidden pt-1">
-          Completá todos los campos para continuar.
-        </p>
+        <!-- Email -->
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5" for="input-email">
+            Email de trabajo
+          </label>
+          <div class="relative">
+            <input
+              id="input-email" type="email" name="email" placeholder="juan@tuempresa.com"
+              autocomplete="email"
+              class="field-input w-full h-12 bg-white border border-gray-200 rounded-xl px-4 pr-10 text-gray-900 placeholder-gray-400 focus:outline-none transition text-sm shadow-sm"
+            />
+            <span class="field-ok absolute right-3 top-1/2 -translate-y-1/2 hidden text-emerald-600">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+            </span>
+          </div>
+          <p class="field-error text-red-600 text-xs mt-1.5 hidden">Ingresá un email válido (ej. juan@tuempresa.com).</p>
+        </div>
+
+        <!-- Empresa -->
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5" for="input-empresa">
+            Empresa
+          </label>
+          <div class="relative">
+            <input
+              id="input-empresa" type="text" name="empresa" placeholder="Acme SA"
+              autocomplete="organization"
+              class="field-input w-full h-12 bg-white border border-gray-200 rounded-xl px-4 pr-10 text-gray-900 placeholder-gray-400 focus:outline-none transition text-sm shadow-sm"
+            />
+            <span class="field-ok absolute right-3 top-1/2 -translate-y-1/2 hidden text-emerald-600">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+            </span>
+          </div>
+          <p class="field-error text-red-600 text-xs mt-1.5 hidden">Ingresá el nombre de tu empresa.</p>
+        </div>
 
         <button
           type="submit"
-          class="w-full h-13 bg-orange-500 hover:bg-orange-400 active:scale-[0.98] text-white font-bold py-4 rounded-xl transition-all duration-150 text-sm shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 mt-1"
+          class="w-full h-13 bg-[#5b3df5] hover:bg-[#4c2ee0] active:scale-[0.98] text-white font-bold py-4 rounded-xl transition-all duration-150 text-sm shadow-lg shadow-[#5b3df5]/20 hover:shadow-[#5b3df5]/35 mt-1"
         >
           Ver mi Growth Score →
         </button>
 
-        <p class="text-center text-xs text-slate-600 pt-1">
+        <p class="text-center text-xs text-gray-400 pt-1">
           Sin spam. Tu info no se comparte con terceros.
         </p>
       </form>
@@ -280,15 +327,15 @@
     <div class="w-full max-w-sm text-center fade-up">
 
       <!-- Ícono animado -->
-      <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mx-auto mb-7">
-        <svg class="w-8 h-8 text-indigo-400 animate-spin" fill="none" viewBox="0 0 24 24">
+      <div class="w-16 h-16 rounded-2xl bg-violet-100 border border-violet-200 flex items-center justify-center mx-auto mb-7">
+        <svg class="w-8 h-8 text-violet-500 animate-spin" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-20" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-80" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
       </div>
 
       <h2 class="text-xl font-bold mb-1.5">Analizando tu presencia digital</h2>
-      <p class="text-slate-500 text-sm mb-9">Puede tardar hasta 30 segundos</p>
+      <p class="text-gray-500 text-sm mb-9">Puede tardar hasta 30 segundos</p>
 
       <!-- Steps — estado manejado por JS -->
       <div class="space-y-2.5 text-left" id="steps-container">
@@ -298,46 +345,46 @@
 
         <div id="step-1" class="loading-step flex items-center gap-3 p-3 rounded-xl border border-transparent transition-all duration-400">
           <div class="w-7 h-7 flex items-center justify-center flex-shrink-0">
-            <span class="step-pending w-2 h-2 rounded-full bg-slate-600 block"></span>
-            <svg class="step-active hidden w-4 h-4 text-indigo-400 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-            <svg class="step-done hidden w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <span class="step-pending w-2 h-2 rounded-full bg-gray-300 block"></span>
+            <svg class="step-active hidden w-4 h-4 text-violet-500 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            <svg class="step-done hidden w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           </div>
-          <span class="text-sm text-slate-400 step-label">Analizando tu sitio y tu marca</span>
+          <span class="text-sm text-gray-600 step-label">Analizando tu sitio y tu marca</span>
         </div>
 
         <div id="step-2" class="loading-step flex items-center gap-3 p-3 rounded-xl border border-transparent transition-all duration-400">
           <div class="w-7 h-7 flex items-center justify-center flex-shrink-0">
-            <span class="step-pending w-2 h-2 rounded-full bg-slate-600 block"></span>
-            <svg class="step-active hidden w-4 h-4 text-indigo-400 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-            <svg class="step-done hidden w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <span class="step-pending w-2 h-2 rounded-full bg-gray-300 block"></span>
+            <svg class="step-active hidden w-4 h-4 text-violet-500 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            <svg class="step-done hidden w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           </div>
-          <span class="text-sm text-slate-400 step-label">Revisando publicidad y medición</span>
+          <span class="text-sm text-gray-600 step-label">Revisando publicidad y medición</span>
         </div>
 
         <div id="step-3" class="loading-step flex items-center gap-3 p-3 rounded-xl border border-transparent transition-all duration-400">
           <div class="w-7 h-7 flex items-center justify-center flex-shrink-0">
-            <span class="step-pending w-2 h-2 rounded-full bg-slate-600 block"></span>
-            <svg class="step-active hidden w-4 h-4 text-indigo-400 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-            <svg class="step-done hidden w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <span class="step-pending w-2 h-2 rounded-full bg-gray-300 block"></span>
+            <svg class="step-active hidden w-4 h-4 text-violet-500 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            <svg class="step-done hidden w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           </div>
-          <span class="text-sm text-slate-400 step-label">Evaluando posicionamiento en Google</span>
+          <span class="text-sm text-gray-600 step-label">Evaluando posicionamiento en Google</span>
         </div>
 
         <div id="step-4" class="loading-step flex items-center gap-3 p-3 rounded-xl border border-transparent transition-all duration-400">
           <div class="w-7 h-7 flex items-center justify-center flex-shrink-0">
-            <span class="step-pending w-2 h-2 rounded-full bg-slate-600 block"></span>
-            <svg class="step-active hidden w-4 h-4 text-indigo-400 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-            <svg class="step-done hidden w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <span class="step-pending w-2 h-2 rounded-full bg-gray-300 block"></span>
+            <svg class="step-active hidden w-4 h-4 text-violet-500 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            <svg class="step-done hidden w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           </div>
-          <span class="text-sm text-slate-400 step-label">Armando el panorama completo de tu marca</span>
+          <span class="text-sm text-gray-600 step-label">Armando el panorama completo de tu marca</span>
         </div>
       </div>
 
       <!-- Error state -->
-      <div id="loading-error" class="hidden mt-8 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-left">
-        <p class="text-red-400 text-sm font-semibold mb-1">No pudimos analizar el sitio</p>
-        <p id="loading-error-msg" class="text-red-300/60 text-xs leading-relaxed mb-3"></p>
-        <button id="btn-retry" class="text-xs text-indigo-400 hover:text-indigo-300 transition-colors">
+      <div id="loading-error" class="hidden mt-8 p-4 bg-red-50 border border-red-200 rounded-xl text-left">
+        <p class="text-red-600 text-sm font-semibold mb-1">No pudimos analizar el sitio</p>
+        <p id="loading-error-msg" class="text-red-400 text-xs leading-relaxed mb-3"></p>
+        <button id="btn-retry" class="text-xs text-violet-600 hover:text-violet-700 transition-colors">
           ← Intentar con otra URL
         </button>
       </div>
@@ -357,56 +404,35 @@
     <div class="max-w-[720px] lg:max-w-[1100px] mx-auto px-4 sm:px-6 pt-8 sm:pt-10 mb-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2 min-w-0">
-          <svg class="w-3.5 h-3.5 text-slate-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg class="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" />
           </svg>
-          <span id="result-url" class="text-sm text-slate-500 truncate max-w-[180px] sm:max-w-xs lg:max-w-sm"></span>
+          <span id="result-url" class="text-sm text-gray-500 truncate max-w-[180px] sm:max-w-xs lg:max-w-sm"></span>
         </div>
         <button id="btn-restart"
-          class="text-xs text-slate-500 hover:text-indigo-400 transition-colors flex-shrink-0 ml-4 font-semibold">
+          class="text-xs text-gray-500 hover:text-violet-600 transition-colors flex-shrink-0 ml-4 font-semibold">
           ← Nuevo análisis
         </button>
       </div>
     </div>
 
-    <!-- ── Nav interna sticky (se pega arriba al scrollear) ── -->
-    <!-- Fondo con blur para que el contenido no se "mezcle" al pasar por debajo -->
-    <nav id="results-nav"
-         class="sticky top-0 z-30 bg-[#060B14]/95 backdrop-blur border-b border-slate-800/60">
-      <div class="max-w-[720px] lg:max-w-[1100px] mx-auto px-4 sm:px-6">
-        <div class="flex items-center gap-0.5 py-2">
-          <a href="#sec-resumen" data-section="sec-resumen"
-             class="results-nav-link text-xs font-semibold text-slate-500 hover:text-white
-                    px-3 py-1.5 rounded-lg cursor-pointer">
-            Resumen
-          </a>
-          <a href="#sec-areas" data-section="sec-areas"
-             class="results-nav-link text-xs font-semibold text-slate-500 hover:text-white
-                    px-3 py-1.5 rounded-lg cursor-pointer">
-            Áreas
-          </a>
-          <a href="#sec-oportunidades" data-section="sec-oportunidades"
-             class="results-nav-link text-xs font-semibold text-slate-500 hover:text-white
-                    px-3 py-1.5 rounded-lg cursor-pointer">
-            Oportunidades
-          </a>
-          <a href="#sec-publicidad" data-section="sec-publicidad"
-             class="results-nav-link text-xs font-semibold text-slate-500 hover:text-white
-                    px-3 py-1.5 rounded-lg cursor-pointer">
-            Publicidad
-          </a>
-          <a href="#sec-agenda" data-section="sec-agenda"
-             class="results-nav-link text-xs font-semibold text-slate-500 hover:text-white
-                    px-3 py-1.5 rounded-lg cursor-pointer">
-            Agendá
-          </a>
-        </div>
-      </div>
-    </nav>
-
     <!-- ── Contenido principal ── -->
-    <!-- pb-24: espacio para la barra flotante en mobile -->
-    <div class="max-w-[720px] lg:max-w-[1100px] mx-auto px-4 sm:px-6 pb-24 sm:pb-12">
+    <!-- pb-28: espacio para que el sticky CTA no tape el final del informe -->
+    <div class="max-w-[720px] lg:max-w-[1100px] mx-auto px-4 sm:px-6 pb-28">
+
+      <!-- ════════════════════════════════════════════════════════════════
+           ENCABEZADO DEL INFORME — nombre empresa + URL + fecha
+      ════════════════════════════════════════════════════════════════════ -->
+      <div id="result-header" class="mb-8 mt-2">
+        <p class="text-[11px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+          Diagnóstico de presencia digital
+        </p>
+        <h2 id="result-company-name"
+            class="text-3xl sm:text-4xl font-black text-[#1e1b4b] leading-tight tracking-tight mb-2">
+          —
+        </h2>
+        <p id="result-meta" class="text-sm text-gray-500"></p>
+      </div>
 
       <!-- ════════════════════════════════════════════════════════════════
            SECCIÓN 1: Resumen (anillo + meta) | Áreas (barras)
@@ -425,7 +451,7 @@
           <div id="score-ring-wrap" class="relative flex-shrink-0 w-[152px] h-[152px]">
             <svg width="152" height="152" viewBox="0 0 120 120" fill="none">
               <circle cx="60" cy="60" r="50"
-                stroke="rgba(255,255,255,0.06)" stroke-width="9"/>
+                stroke="#e9e7f8" stroke-width="9"/>
               <circle id="score-arc"
                 cx="60" cy="60" r="50"
                 stroke="#22c55e" stroke-width="9"
@@ -436,32 +462,37 @@
             </svg>
             <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
               <span id="result-score"
-                class="text-[2.75rem] font-black text-white leading-none tabular-nums"></span>
-              <span class="text-[11px] text-slate-500 mt-1 font-medium">/100</span>
+                class="text-[2.75rem] font-black text-[#1e1b4b] leading-none tabular-nums"></span>
+              <span class="text-[11px] text-gray-400 mt-1 font-medium">/100</span>
             </div>
           </div>
 
           <!-- Meta del score -->
           <div class="text-center sm:text-left lg:text-center">
-            <p class="text-[11px] font-bold uppercase tracking-widest text-slate-500 mb-2">
+            <p class="text-[11px] font-bold uppercase tracking-widest text-gray-500 mb-2">
               Growth Score
             </p>
             <span id="result-score-badge"
               class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold border mb-4"></span>
-            <p class="text-slate-500 text-sm leading-relaxed max-w-[260px] mx-auto sm:mx-0 lg:mx-auto">
+            <p class="text-gray-500 text-sm leading-relaxed max-w-[260px] mx-auto sm:mx-0 lg:mx-auto">
               Puntaje global de tu presencia digital: Google, publicidad, conversiones, medición y mensaje.
             </p>
+
+            <!-- Mini resumen dinámico — rellena el espacio vacío bajo el anillo -->
+            <div id="score-summary" class="mt-5 w-full max-w-[260px] mx-auto sm:mx-0 lg:mx-auto hidden">
+              <!-- Renderizado por JS -->
+            </div>
           </div>
         </div>
 
         <!-- ── Col der: barras de desglose ── -->
         <!-- id="sec-areas" acá: en mobile queda DEBAJO del anillo (scroll real);
              en desktop ya está visible al lado, el scroll spy lo detecta en viewport -->
-        <div id="sec-areas" class="lg:border-l lg:border-slate-800 lg:pl-10">
-          <h3 class="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-6">
+        <div id="sec-areas" class="lg:border-l lg:border-gray-200 lg:pl-10">
+          <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-6">
             Desglose de tu presencia digital
           </h3>
-          <div class="space-y-5" id="subscores-container">
+          <div class="space-y-2" id="subscores-container">
             <!-- Renderizado por JS -->
           </div>
         </div>
@@ -474,10 +505,10 @@
            SECCIÓN 2: Oportunidades (3 cols en desktop)
       ════════════════════════════════════════════════════════════════════ -->
       <div id="sec-oportunidades" class="mb-10">
-        <h3 class="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">
+        <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-1">
           Las 3 oportunidades prioritarias
         </h3>
-        <p class="text-slate-600 text-xs mb-6">
+        <p class="text-gray-400 text-xs mb-6">
           Hallazgos concretos de tu presencia digital, ordenados por impacto potencial
         </p>
         <div class="space-y-4 lg:grid lg:grid-cols-3 lg:gap-5 lg:space-y-0"
@@ -489,62 +520,65 @@
       <div class="section-divider mb-10"></div>
 
       <!-- ════════════════════════════════════════════════════════════════
-           SECCIÓN 3: Publicidad en Meta
-      ════════════════════════════════════════════════════════════════════ -->
-      <div id="sec-publicidad" class="mb-10">
-        <h3 class="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">
-          Publicidad activa en Meta
-        </h3>
-        <p class="text-slate-600 text-xs mb-6">
-          Detección desde la biblioteca pública de anuncios de Meta — igual que el tracking, puede haber campañas del lado del servidor no detectables
-        </p>
-        <div id="ads-container">
-          <!-- Renderizado por JS -->
-        </div>
-      </div>
-
-      <div class="section-divider mb-10"></div>
-
-      <!-- ════════════════════════════════════════════════════════════════
            SECCIÓN 4: Cierre + CTA (Agendá)
       ════════════════════════════════════════════════════════════════════ -->
       <div id="sec-agenda" class="pb-6">
 
-        <!-- Bloque de cierre — conecta el diagnóstico con la reunión -->
-        <div class="bg-[#0C1220] border border-slate-700/50 rounded-2xl p-6 sm:p-8 mb-6">
+        <!-- Tarjeta CTA — fondo violeta gradiente para máximo impacto visual -->
+        <div class="relative overflow-hidden rounded-2xl p-6 sm:p-10 mb-6"
+             style="background: linear-gradient(135deg, #5b3df5 0%, #4c2ee0 50%, #3b1fd4 100%);
+                    box-shadow: 0 24px 64px rgba(91,61,245,0.38), 0 4px 16px rgba(91,61,245,0.22);">
 
-          <!-- Encabezado dinámico — renderizado por JS en #agenda-heading -->
-          <p class="text-[11px] font-bold uppercase tracking-widest text-orange-400/80 mb-3">
-            Siguiente paso
-          </p>
-          <h3 id="agenda-heading" class="text-xl sm:text-2xl font-black mb-3 leading-tight">
-            Estas oportunidades se pueden trabajar
-          </h3>
-          <p id="agenda-body" class="text-slate-400 text-sm leading-relaxed mb-6 max-w-md">
-            Ya miramos toda tu presencia digital. En una reunión de 20 minutos
-            te mostramos por dónde empezar y cómo priorizar cada mejora para
-            conseguir más clientes — sin compromiso.
-          </p>
+          <!-- Círculos decorativos de fondo -->
+          <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;
+                      border-radius:999px;background:rgba(255,255,255,0.06);pointer-events:none;"></div>
+          <div style="position:absolute;bottom:-80px;left:-40px;width:260px;height:260px;
+                      border-radius:999px;background:rgba(255,255,255,0.04);pointer-events:none;"></div>
 
-          <a
-            href="https://cal.com/tomas-zimba/30min"
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center justify-center gap-2.5
-                   bg-orange-500 hover:bg-orange-400 active:scale-[0.98]
-                   text-white font-bold px-8 py-4 rounded-2xl
-                   transition-all duration-150 text-[15px]
-                   shadow-2xl shadow-orange-500/30 hover:shadow-orange-500/50
-                   hover:-translate-y-0.5 w-full sm:w-auto"
-          >
-            Agendá gratis con los especialistas de Zimba
-            <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24"
-                 stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-            </svg>
-          </a>
-          <p class="text-xs text-slate-700 mt-4">Sin cargo · Sin compromiso · Solo estrategia</p>
+          <div class="relative z-10">
+            <!-- Pregunta directa al dueño -->
+            <p class="text-[13px] font-semibold mb-3"
+               style="color:rgba(196,181,253,0.9);">
+              ¿Querés que te ayudemos a mejorar esto?
+            </p>
 
+            <!-- Heading dinámico — renderizado por JS -->
+            <h3 id="agenda-heading"
+                class="text-2xl sm:text-3xl font-black leading-tight mb-3"
+                style="color:#ffffff;">
+              Estas oportunidades se pueden trabajar
+            </h3>
+
+            <!-- Cuerpo dinámico — renderizado por JS -->
+            <p id="agenda-body"
+               class="text-sm leading-relaxed mb-7 max-w-lg"
+               style="color:rgba(221,214,254,0.85);">
+              Ya miramos toda tu presencia digital. En una reunión de 20 minutos
+              te mostramos por dónde empezar y cómo priorizar cada mejora para
+              conseguir más clientes — sin compromiso.
+            </p>
+
+            <!-- Botón principal — blanco sobre violeta, pulso animado -->
+            <a
+              href="https://cal.com/tomas-zimba/30min"
+              target="_blank"
+              rel="noopener"
+              class="cta-pulse-btn flex sm:inline-flex items-center justify-center gap-3
+                     font-black rounded-2xl transition-all duration-150 text-[15px] sm:text-base
+                     active:scale-[0.98] hover:scale-[1.02] w-full sm:w-auto"
+              style="background:#ffffff; color:#5b3df5; padding:18px 36px;"
+            >
+              Agendá gratis con los especialistas de Zimba
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+
+            <p class="text-xs mt-5" style="color:rgba(196,181,253,0.65);">
+              Sin cargo · Sin compromiso · Solo estrategia
+            </p>
+          </div>
         </div>
 
       </div>
@@ -560,7 +594,22 @@
     'use strict';
 
     // ── Estado global ──────────────────────────────────────────────────────
-    let currentUrl = '';
+    let currentUrl     = '';
+    let currentEmpresa = '';
+
+    // Deriva el nombre de empresa del dominio si el usuario no lo ingresó
+    function displayCompanyName(empresa, url) {
+      if (empresa && empresa.trim()) return empresa.trim();
+      try {
+        const hostname = new URL(url.startsWith('http') ? url : `https://${url}`).hostname;
+        const raw = hostname.replace(/^www\./, '').split('.')[0].replace(/-/g, ' ');
+        return raw.charAt(0).toUpperCase() + raw.slice(1);
+      } catch { return url; }
+    }
+
+    function formatDate() {
+      return new Date().toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
 
     // ── Utilidades de pantalla ─────────────────────────────────────────────
     function showScreen(id) {
@@ -575,9 +624,9 @@
         el.style.animation = '';
       });
       window.scrollTo({ top: 0, behavior: 'instant' });
-      // Mostrar floating CTA solo en pantalla de resultados
-      const floatingCta = document.getElementById('floating-cta');
-      if (floatingCta) floatingCta.classList.toggle('cta-hidden', id !== 'results');
+      // Sticky CTA: solo visible en pantalla de resultados
+      const stickyCta = document.getElementById('sticky-cta');
+      if (stickyCta) stickyCta.classList.toggle('cta-hidden', id !== 'results');
     }
 
     // ── Validación de URL ──────────────────────────────────────────────────
@@ -618,21 +667,86 @@
     document.getElementById('btn-back-landing').addEventListener('click', () => showScreen('landing'));
 
     // ────────────────────────────────────────────────────────────────────────
+    // VALIDACIÓN DE FORMULARIO
+    // ────────────────────────────────────────────────────────────────────────
+
+    // Regex RFC-5322 simplificado: requiere algo@dominio.ext (al menos 1 char de extensión)
+    function isValidEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+    }
+
+    /**
+     * Valida un campo y aplica estilos + muestra/oculta su mensaje de error.
+     * Retorna true si es válido.
+     */
+    function validateField(input, isValid) {
+      const wrapper = input.closest('div');
+      const errMsg  = wrapper.parentElement.querySelector('.field-error');
+      const okIcon  = wrapper.querySelector('.field-ok');
+
+      input.classList.toggle('is-invalid', !isValid);
+      input.classList.toggle('is-valid',    isValid);
+      if (errMsg) errMsg.classList.toggle('hidden', isValid);
+      if (okIcon) okIcon.classList.toggle('hidden',  !isValid);
+
+      return isValid;
+    }
+
+    // Live check en email: mostrar check verde mientras el usuario escribe
+    document.getElementById('input-email').addEventListener('input', function () {
+      const val = this.value.trim();
+      if (!val) {
+        // Vacío: volver al estado neutro (sin error ni check)
+        this.classList.remove('is-invalid', 'is-valid');
+        const wrapper = this.closest('div');
+        wrapper.querySelector('.field-ok').classList.add('hidden');
+        wrapper.parentElement.querySelector('.field-error').classList.add('hidden');
+      } else if (isValidEmail(val)) {
+        validateField(this, true);
+      } else {
+        // Mientras escribe y el formato todavía no es válido: no mostrar error
+        // hasta que pierda el foco (blur), para no molestar mientras tipea
+        this.classList.remove('is-invalid', 'is-valid');
+        const wrapper = this.closest('div');
+        wrapper.querySelector('.field-ok').classList.add('hidden');
+        wrapper.parentElement.querySelector('.field-error').classList.add('hidden');
+      }
+    });
+
+    // Al salir del campo email sin valor válido: mostrar el error
+    document.getElementById('input-email').addEventListener('blur', function () {
+      const val = this.value.trim();
+      if (val) validateField(this, isValidEmail(val));
+    });
+
+    // ────────────────────────────────────────────────────────────────────────
     // PANTALLA 2 → 3: envío del form
     // ────────────────────────────────────────────────────────────────────────
     document.getElementById('lead-form').addEventListener('submit', async e => {
       e.preventDefault();
-      const nombre = document.getElementById('input-nombre').value.trim();
-      const email  = document.getElementById('input-email').value.trim();
-      const empresa = document.getElementById('input-empresa').value.trim();
-      const errEl = document.getElementById('form-error');
 
-      if (!nombre || !email || !empresa) {
-        errEl.classList.remove('hidden');
+      const nombreInput  = document.getElementById('input-nombre');
+      const emailInput   = document.getElementById('input-email');
+      const empresaInput = document.getElementById('input-empresa');
+
+      const nombre  = nombreInput.value.trim();
+      const email   = emailInput.value.trim();
+      const empresa = empresaInput.value.trim();
+
+      // Validar cada campo individualmente para mostrar errores específicos
+      const v1 = validateField(nombreInput,  nombre.length >= 2);
+      const v2 = validateField(emailInput,   isValidEmail(email));
+      const v3 = validateField(empresaInput, empresa.length >= 2);
+
+      if (!v1 || !v2 || !v3) {
+        // Enfocar el primer campo inválido
+        if (!v1) nombreInput.focus();
+        else if (!v2) emailInput.focus();
+        else empresaInput.focus();
         return;
       }
-      errEl.classList.add('hidden');
 
+      currentEmpresa = empresa;
       showScreen('loading');
       resetSteps();
 
@@ -657,18 +771,18 @@
       // Reset classes
       [pending, active, done].forEach(x => x.classList.add('hidden'));
       el.classList.remove(
-        'border-indigo-500/30', 'bg-indigo-500/5',
-        'border-emerald-500/20', 'bg-emerald-500/5'
+        'border-violet-300', 'bg-violet-50',
+        'border-emerald-200', 'bg-emerald-50'
       );
 
       if (state === 'pending') {
         pending.classList.remove('hidden');
       } else if (state === 'active') {
         active.classList.remove('hidden');
-        el.classList.add('border-indigo-500/30', 'bg-indigo-500/5');
+        el.classList.add('border-violet-300', 'bg-violet-50');
       } else if (state === 'done') {
         done.classList.remove('hidden');
-        el.classList.add('border-emerald-500/20', 'bg-emerald-500/5');
+        el.classList.add('border-emerald-200', 'bg-emerald-50');
       }
     }
 
@@ -754,6 +868,21 @@
     // RENDERIZADO DE RESULTADOS
     // ────────────────────────────────────────────────────────────────────────
     function renderResults(data) {
+      // ── Debug: verificar que areaExplicaciones llega del análisis ──────────
+      console.log('[Debug] areaExplicaciones:', JSON.stringify(data.areaExplicaciones ?? null));
+
+      // ── Counts globales (usados por veredicto, resumen y agenda) ────────────
+      const allScores  = Object.values(data.scores ?? {});
+      const critCount  = allScores.filter(s => s <= 8).length;
+      const mejCount   = allScores.filter(s => s >= 9 && s <= 13).length;
+      const bienCount  = allScores.filter(s => s >= 14).length;
+
+      // ── Encabezado del informe ─────────────────────────────────────────────
+      const companyName = displayCompanyName(currentEmpresa, currentUrl);
+      document.getElementById('result-company-name').textContent = companyName;
+      document.getElementById('result-meta').textContent =
+        `${currentUrl} · ${formatDate()}`;
+
       // URL y número
       document.getElementById('result-url').textContent = currentUrl;
       document.getElementById('result-score').textContent = data.growthScore;
@@ -779,6 +908,34 @@
       const { text, cls } = scoreBadge(data.growthScore);
       badge.textContent = text;
       badge.className = `inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold border ${cls}`;
+
+      // ── Mini resumen bajo el anillo ───────────────────────────────────────
+      const summaryEl = document.getElementById('score-summary');
+      if (summaryEl && data.scores) {
+        const parts = [];
+        if (critCount > 0) parts.push(`<span style="color:#dc2626;font-weight:700;">${critCount} crítica${critCount > 1 ? 's' : ''}</span>`);
+        if (mejCount  > 0) parts.push(`<span style="color:#d97706;font-weight:700;">${mejCount} mejorable${mejCount > 1 ? 's' : ''}</span>`);
+        if (bienCount > 0) parts.push(`<span style="color:#059669;font-weight:700;">${bienCount} bien</span>`);
+
+        const summaryLine = parts.length > 0
+          ? `Tenés ${parts.join(', ')} de las 5 áreas.`
+          : '';
+
+        // Top oportunidad (primera del array)
+        const topOp = (data.oportunidades ?? [])[0];
+        const topOpHtml = topOp
+          ? `<p class="text-[12px] text-gray-500 mt-2 leading-snug border-t border-violet-100 pt-2">
+               <span class="text-gray-700 font-semibold">Prioridad:</span> ${escHtml(topOp.titulo)}
+             </p>`
+          : '';
+
+        summaryEl.innerHTML = `
+          <div class="bg-violet-50 border border-violet-100 rounded-xl px-4 py-3 text-[13px] text-gray-600 leading-snug">
+            ${summaryLine}
+            ${topOpHtml}
+          </div>`;
+        summaryEl.classList.remove('hidden');
+      }
 
       // ── Sub-scores con objetivo de referencia ────────────────────────────
       // TARGET: 17/20 = nivel de empresa que escala bien (85% de la barra)
@@ -806,56 +963,73 @@
         const isGreen  = score >= 14;
 
         const barHex = isGreen ? '#10b981' : isAmber ? '#f59e0b' : '#ef4444';
-        const numCls = isGreen ? 'text-emerald-400' : isAmber ? 'text-amber-400' : 'text-red-400';
+        const numCls = isGreen ? 'text-emerald-700' : isAmber ? 'text-amber-700' : 'text-red-600';
 
         // Texto de brecha debajo de la barra
         const gapText = score >= TARGET
-          ? `<span class="text-[11px] text-emerald-500/70">En el nivel objetivo</span>`
-          : `<span class="text-[11px] text-slate-600">Estás en ${score} · el objetivo es ${TARGET}/20</span>`;
+          ? `<span style="font-size:11px;color:#059669;">En el nivel objetivo</span>`
+          : `<span style="font-size:11px;color:#9ca3af;">Estás en ${score} · el objetivo es ${TARGET}/20</span>`;
 
-        // Badge: solo en rojo es urgente; en naranja neutro; en verde positivo
-        const bigGapBadge = isRed
-          ? `<span class="text-[11px] text-red-400 font-semibold whitespace-nowrap">Mayor margen de mejora ↑</span>`
+        // Chip de estado
+        const statusChip = isRed
+          ? `<span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:2px 8px;border-radius:999px;background:#fef2f2;color:#dc2626;border:1px solid #fecaca;">Crítico</span>`
           : isAmber
-          ? `<span class="text-[11px] text-amber-500/70 whitespace-nowrap">Hay margen</span>`
-          : isGreen && score >= TARGET
-          ? `<span class="text-[11px] text-emerald-500/70 whitespace-nowrap">Vas bien ✓</span>`
+          ? `<span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:2px 8px;border-radius:999px;background:#fffbeb;color:#d97706;border:1px solid #fde68a;">Mejorable</span>`
+          : `<span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:2px 8px;border-radius:999px;background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;">Bien</span>`;
+
+        // Explicaciones en criollo del área (vienen de Claude)
+        const explicacion    = data.areaExplicaciones?.[key] ?? {};
+        const queSignifica   = explicacion.queSignifica ?? '';
+        const queCuesta      = explicacion.queCuesta    ?? '';
+        const queCuestaColor = isRed ? '#dc2626' : isAmber ? '#d97706' : '#059669';
+        const explicacionInner = (queSignifica || queCuesta)
+          ? `${queSignifica ? `<p style="font-size:13px;color:#4b5563;line-height:1.5;margin:0 0 6px;">${escHtml(queSignifica)}</p>` : ''}
+             ${queCuesta    ? `<p style="font-size:13px;color:${queCuestaColor};line-height:1.5;margin:0;">${escHtml(queCuesta)}</p>`    : ''}`
           : '';
 
+        // Auto-expandir solo áreas críticas (rojo); las demás, colapsadas
+        const openAttr = isRed ? 'open' : '';
+
         return `
-          <div>
-            <!-- Fila superior: nombre + puntaje -->
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-sm text-slate-300 flex items-center gap-2">
-                <span class="text-base leading-none">${icon}</span>${escHtml(label)}
-              </span>
-              <span class="text-sm font-bold tabular-nums ${numCls}">
-                ${score}<span class="text-slate-600 font-normal text-xs">/20</span>
-              </span>
-            </div>
-
-            <!-- Barra + marca de objetivo -->
-            <!-- py-[3px] da espacio para que el marcador sobresalga del track -->
-            <div class="relative py-[3px] mb-1.5">
-              <!-- Track con la barra de relleno -->
-              <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
-                <div class="score-bar h-full rounded-full"
-                     style="width:0%;background-color:${barHex}"
-                     data-target="${pct}"></div>
+          <details class="area-card rounded-xl overflow-hidden" ${openAttr}
+                   style="border:1px solid ${isRed ? '#fecaca' : '#e5e7eb'}; background:#ffffff;">
+            <summary class="px-4 pt-3.5 pb-3 flex flex-col gap-2.5">
+              <!-- Fila: ícono + nombre + chip + score + chevron -->
+              <div class="flex items-center justify-between gap-2">
+                <span style="font-size:14px;color:#374151;display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:16px;line-height:1;">${icon}</span>${escHtml(label)}
+                </span>
+                <div class="flex items-center gap-2 flex-shrink-0">
+                  ${statusChip}
+                  <span style="font-size:14px;font-weight:700;" class="${numCls}">
+                    ${score}<span style="font-size:11px;color:#9ca3af;font-weight:400;">/20</span>
+                  </span>
+                  <svg class="area-chevron" style="width:14px;height:14px;color:#9ca3af;flex-shrink:0;"
+                       fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </div>
               </div>
-              <!-- Marca de objetivo en ${TARGET_PCT}% — línea vertical que sobresale -->
-              <div class="absolute top-1/2 -translate-y-1/2 w-[2px] h-[14px]
-                          rounded-full bg-slate-400/50 pointer-events-none"
-                   style="left:${TARGET_PCT}%"
-                   title="Objetivo: ${TARGET}/20"></div>
-            </div>
-
-            <!-- Fila inferior: texto brecha + badge oportunidad -->
-            <div class="flex items-center justify-between gap-2 flex-wrap">
-              ${gapText}
-              ${bigGapBadge}
-            </div>
-          </div>
+              <!-- Barra -->
+              <div class="relative" style="padding:3px 0;">
+                <div style="height:6px;background:#f3f4f6;border-radius:999px;overflow:hidden;">
+                  <div class="score-bar" style="height:100%;border-radius:999px;width:0%;background-color:${barHex};"
+                       data-target="${pct}"></div>
+                </div>
+                <div style="position:absolute;top:50%;transform:translateY(-50%);width:2px;height:12px;border-radius:2px;background:#d1d5db;pointer-events:none;left:${TARGET_PCT}%;"
+                     title="Objetivo: ${TARGET}/20"></div>
+              </div>
+              <!-- Brecha + hint -->
+              <div class="flex items-center justify-between" style="margin-top:-4px;">
+                ${gapText}
+                <span class="area-expand-hint" style="font-size:10px;color:#d1d5db;">ver más ↓</span>
+              </div>
+            </summary>
+            ${explicacionInner ? `
+            <div style="padding:12px 16px 14px;border-top:1px solid #f3f4f6;">
+              ${explicacionInner}
+            </div>` : ''}
+          </details>
         `;
       }).join('');
 
@@ -864,20 +1038,20 @@
       opContainer.innerHTML = (data.oportunidades ?? []).slice(0, 3).map((op, i) => {
         const num = String(i + 1).padStart(2, '0');
         return `
-          <div class="bg-[#0C1220] border border-slate-700/50
-                      hover:border-slate-600/70 hover:bg-[#0e1628]
-                      rounded-2xl p-5 sm:p-6 transition-all duration-200">
+          <div class="bg-white border border-gray-100
+                      hover:border-violet-200 hover:bg-violet-50/30
+                      rounded-2xl p-5 sm:p-6 transition-all duration-200 shadow-sm">
             <div class="flex items-start gap-4">
               <div class="flex-shrink-0 w-11 h-11 rounded-xl
-                          bg-orange-500/10 border border-orange-500/20
+                          bg-violet-100 border border-violet-200
                           flex items-center justify-center">
-                <span class="text-orange-400 font-black text-lg leading-none">${num}</span>
+                <span class="text-violet-600 font-black text-lg leading-none">${num}</span>
               </div>
               <div class="flex-1 min-w-0 pt-0.5">
-                <h4 class="font-bold text-white text-[15px] mb-2 leading-snug">
+                <h4 class="font-bold text-[#1e1b4b] text-[15px] mb-2 leading-snug">
                   ${escHtml(op.titulo ?? '')}
                 </h4>
-                <p class="text-slate-400 text-sm leading-relaxed">
+                <p class="text-gray-600 text-sm leading-relaxed">
                   ${escHtml(op.detalle ?? '')}
                 </p>
               </div>
@@ -887,22 +1061,22 @@
       }).join('');
 
       // ── Bloque de cierre dinámico ─────────────────────────────────────────
-      // Cuenta áreas en rojo (≤8) o naranja (9-13) para personalizar el mensaje
-      const scores = data.scores ?? {};
-      const weakCount = Object.values(scores).filter(s => s <= 13).length;
+      // weakCount = áreas que necesitan atención (rojo + naranja)
+      const weakCount = critCount + mejCount;
       const agendaHeading = document.getElementById('agenda-heading');
       const agendaBody    = document.getElementById('agenda-body');
       if (agendaHeading && agendaBody) {
+        // Los <strong> usan inline style (fondo violeta oscuro, no Tailwind)
         if (weakCount >= 3) {
           agendaHeading.textContent = 'Estas oportunidades se pueden trabajar';
           agendaBody.innerHTML =
-            `Tu presencia digital tiene <strong class="text-white">${weakCount} áreas con margen de mejora</strong>. ` +
+            `Tu presencia digital tiene <strong style="color:#fff;font-weight:800;">${weakCount} áreas con margen de mejora</strong>. ` +
             `En una reunión de 20 minutos te mostramos por dónde empezar y cómo priorizarlas ` +
             `para conseguir más clientes — sin compromiso.`;
         } else if (weakCount >= 1) {
           agendaHeading.textContent = 'Hay margen para crecer';
           agendaBody.innerHTML =
-            `Detectamos <strong class="text-white">${weakCount} área${weakCount > 1 ? 's' : ''} con margen de mejora</strong> ` +
+            `Detectamos <strong style="color:#fff;font-weight:800;">${weakCount} área${weakCount > 1 ? 's' : ''} con margen de mejora</strong> ` +
             `en tu presencia digital. En 20 minutos te explicamos cómo trabajarlas ` +
             `para convertirlas en más clientes — sin compromiso.`;
         } else {
@@ -913,9 +1087,7 @@
         }
       }
 
-      renderAds(data.ads);
       showScreen('results');
-      initScrollSpy();
 
       // Animar barras DESPUÉS del primer frame pintado
       requestAnimationFrame(() => {
@@ -927,94 +1099,6 @@
       });
     }
 
-    // ────────────────────────────────────────────────────────────────────────
-    // TARJETA DE PUBLICIDAD EN META
-    // ────────────────────────────────────────────────────────────────────────
-    function renderAds(ads) {
-      const container = document.getElementById('ads-container');
-      if (!container) return;
-
-      // Fallback si el campo viene undefined (análisis anteriores sin este dato)
-      if (!ads || !ads.adLibraryUrl) {
-        container.innerHTML = '';
-        return;
-      }
-
-      const { searchTerm, adLibraryUrl, adCount, detected } = ads;
-
-      let statusColor, statusDot, statusText, ctaText, borderCls;
-
-      if (detected === true) {
-        const n = adCount != null ? adCount : '?';
-        statusDot   = '#22c55e';
-        statusColor = 'text-emerald-400';
-        borderCls   = 'border-emerald-500/20';
-        statusText  = adCount != null
-          ? `Detectamos <strong class="text-white">${n} anuncio${n === 1 ? '' : 's'} activo${n === 1 ? '' : 's'}</strong> en la biblioteca pública de Meta.`
-          : `Detectamos anuncios activos en la biblioteca pública de Meta.`;
-        ctaText     = 'Ver sus anuncios en Meta →';
-      } else if (detected === false) {
-        statusDot   = '#ef4444';
-        statusColor = 'text-slate-400';
-        borderCls   = 'border-slate-700/50';
-        statusText  = `No detectamos anuncios activos en la búsqueda pública de Meta para <strong class="text-white">"${escHtml(searchTerm)}"</strong>. Puede haber campañas con otra segmentación o en otros canales.`;
-        ctaText     = 'Verificar en Ad Library →';
-      } else {
-        statusDot   = '#64748b';
-        statusColor = 'text-slate-500';
-        borderCls   = 'border-slate-700/50';
-        statusText  = `No pudimos verificar la presencia de anuncios desde la búsqueda pública de Meta para <strong class="text-white">"${escHtml(searchTerm)}"</strong>.`;
-        ctaText     = 'Ver en Ad Library →';
-      }
-
-      container.innerHTML = `
-        <div class="bg-[#0C1220] border ${borderCls}
-                    rounded-2xl p-5 sm:p-6">
-          <div class="flex items-start gap-4">
-            <!-- Ícono Meta -->
-            <div class="flex-shrink-0 w-11 h-11 rounded-xl
-                        bg-blue-500/10 border border-blue-500/20
-                        flex items-center justify-center">
-              <svg class="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
-              </svg>
-            </div>
-
-            <div class="flex-1 min-w-0">
-              <!-- Status row -->
-              <div class="flex items-center gap-2 mb-2">
-                <span class="w-2 h-2 rounded-full flex-shrink-0"
-                      style="background-color:${statusDot}"></span>
-                <span class="text-[11px] font-bold uppercase tracking-widest ${statusColor}">
-                  Meta Ad Library
-                </span>
-              </div>
-
-              <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                ${statusText}
-              </p>
-
-              <a href="${escHtml(adLibraryUrl)}"
-                 target="_blank"
-                 rel="noopener"
-                 class="inline-flex items-center gap-2
-                        text-xs font-bold text-blue-400 hover:text-blue-300
-                        border border-blue-500/25 hover:border-blue-400/40
-                        bg-blue-500/8 hover:bg-blue-500/12
-                        px-4 py-2 rounded-lg transition-all duration-150">
-                ${ctaText}
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor" stroke-width="2.5">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
     /** Color del arco SVG según score global */
     function scoreColor(score) {
       if (score >= 71) return '#22c55e'; // verde
@@ -1024,15 +1108,15 @@
 
     /** Glow del drop-shadow alrededor del anillo */
     function scoreGlow(score) {
-      if (score >= 71) return 'rgba(34,197,94,0.28)';
-      if (score >= 41) return 'rgba(249,115,22,0.28)';
-      return 'rgba(239,68,68,0.28)';
+      if (score >= 71) return 'rgba(5,150,105,0.18)';
+      if (score >= 41) return 'rgba(217,119,6,0.18)';
+      return 'rgba(220,38,38,0.18)';
     }
 
     function scoreBadge(score) {
-      if (score >= 71) return { text: '✓ Buen rendimiento',           cls: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' };
-      if (score >= 41) return { text: '↑ Alto potencial de mejora',   cls: 'bg-amber-500/10   text-amber-400  border-amber-500/20'   };
-      return                   { text: '! Oportunidades urgentes',     cls: 'bg-red-500/10     text-red-400    border-red-500/20'     };
+      if (score >= 71) return { text: '✓ Buen rendimiento',         cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
+      if (score >= 41) return { text: '↑ Alto potencial de mejora', cls: 'bg-amber-50   text-amber-700   border-amber-200'   };
+      return                   { text: '! Oportunidades urgentes',  cls: 'bg-red-50     text-red-600     border-red-200'     };
     }
 
     // Sanitización básica para prevenir XSS en el HTML renderizado
@@ -1045,62 +1129,6 @@
         .replace(/'/g, '&#39;');
     }
 
-    // ────────────────────────────────────────────────────────────────────────
-    // SCROLL SPY & NAV INTERNA
-    // ────────────────────────────────────────────────────────────────────────
-    let scrollSpyObserver = null;
-
-    function initScrollSpy() {
-      // Limpiar observer anterior si el usuario corre un segundo análisis
-      if (scrollSpyObserver) scrollSpyObserver.disconnect();
-
-      const sections = ['sec-resumen', 'sec-areas', 'sec-oportunidades', 'sec-publicidad', 'sec-agenda'];
-      const navLinks = document.querySelectorAll('.results-nav-link');
-
-      function setActiveLink(sectionId) {
-        navLinks.forEach(link => {
-          link.classList.toggle('is-active', link.dataset.section === sectionId);
-        });
-      }
-
-      // Activar "Resumen" al inicio (primer sección siempre visible)
-      setActiveLink('sec-resumen');
-
-      // IntersectionObserver: activa el link cuando la sección entra en el
-      // tercio superior del viewport (compensando el nav sticky de ~52px)
-      scrollSpyObserver = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) setActiveLink(entry.target.id);
-          }
-        },
-        { rootMargin: '-52px 0px -50% 0px', threshold: 0 }
-      );
-
-      sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) scrollSpyObserver.observe(el);
-      });
-    }
-
-    // Smooth scroll al hacer click en links del nav de resultados
-    document.querySelectorAll('.results-nav-link').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.getElementById(link.dataset.section);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    // Smooth scroll del floating CTA (móvil y desktop) hacia #sec-agenda
-    document.addEventListener('click', e => {
-      const link = e.target.closest('#floating-cta-link-mobile, #floating-cta-link-desktop');
-      if (!link) return;
-      e.preventDefault();
-      const target = document.getElementById('sec-agenda');
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-
     // Reiniciar todo desde cero
     document.getElementById('btn-restart').addEventListener('click', () => {
       document.getElementById('landing-url').value = '';
@@ -1109,43 +1137,36 @@
   </script>
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       FLOATING CTA — visible solo en pantalla de resultados
-       Mobile: barra fija ancho completo abajo.
-       Desktop: píldora fija abajo a la derecha.
+       STICKY CTA — solo visible en pantalla de resultados
+       Mobile: barra full-width fija abajo.
+       Desktop: píldora centrada con sombra flotante.
   ═══════════════════════════════════════════════════════════════════════════ -->
-  <div id="floating-cta" class="cta-hidden fixed bottom-0 left-0 right-0 z-40 pointer-events-none">
-    <!-- Mobile bar (hasta sm) -->
-    <div class="sm:hidden bg-[#0C1220]/98 backdrop-blur-sm border-t border-slate-700/60
-                px-4 py-3 pointer-events-auto">
-      <a id="floating-cta-link-mobile" href="https://cal.com/tomas-zimba/30min" target="_blank" rel="noopener"
-         class="flex items-center justify-center gap-2
-                bg-orange-500 hover:bg-orange-400 active:scale-[0.99]
-                text-white font-bold py-3.5 rounded-xl
-                transition-all duration-150 text-sm w-full
-                shadow-lg shadow-orange-500/25">
-        Agendá gratis con Zimba
-        <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24"
-             stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-        </svg>
-      </a>
-    </div>
-    <!-- Desktop pill (sm+) -->
-    <div class="hidden sm:flex justify-end px-8 pb-8 pointer-events-auto">
-      <a id="floating-cta-link-desktop" href="https://cal.com/tomas-zimba/30min" target="_blank" rel="noopener"
-         class="inline-flex items-center gap-2.5
-                bg-orange-500 hover:bg-orange-400 active:scale-[0.98]
-                text-white font-bold px-6 py-3.5 rounded-2xl
-                transition-all duration-150 text-sm
-                shadow-2xl shadow-orange-500/35 hover:shadow-orange-500/55
-                hover:-translate-y-0.5">
-        Agendá gratis con los especialistas de Zimba
-        <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24"
-             stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-        </svg>
-      </a>
+  <div id="sticky-cta" class="cta-hidden fixed bottom-0 left-0 right-0 z-40 pointer-events-none">
+    <!-- Fondo degradado que separa visualmente el botón del contenido -->
+    <div class="pointer-events-none"
+         style="background: linear-gradient(to top, rgba(248,247,255,0.96) 60%, transparent 100%);
+                padding: 16px 16px 20px;">
+      <div class="flex justify-center pointer-events-auto">
+        <a href="https://cal.com/tomas-zimba/30min"
+           target="_blank"
+           rel="noopener"
+           class="flex sm:inline-flex items-center justify-center gap-2.5
+                  font-bold text-white text-sm sm:text-[15px]
+                  rounded-2xl transition-all duration-150
+                  w-full sm:w-auto
+                  hover:-translate-y-0.5 hover:brightness-110 active:scale-[0.98]"
+           style="background:#5b3df5;
+                  padding:16px 28px;
+                  box-shadow:0 8px 28px rgba(91,61,245,0.40), 0 2px 8px rgba(91,61,245,0.25);">
+          Agendá gratis con los especialistas de Zimba
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
     </div>
   </div>
+
 </body>
 </html>

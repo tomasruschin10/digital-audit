@@ -1,7 +1,6 @@
 import type { APIRoute } from 'astro';
 import { scrapeUrl } from '../../lib/scraper.js';
 import { detectTracking } from '../../lib/tracking.js';
-import { detectMetaAds } from '../../lib/ads.js';
 import { analyzeWithClaude } from '../../lib/claude.js';
 import { saveLead } from '../../lib/leads.js';
 
@@ -17,6 +16,11 @@ export const prerender = false;
  *   event: result    → AnalysisResult completo
  *   event: error     → { message: string }
  */
+/** Validación de email (misma regex que el cliente) */
+function isValidEmail(v: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+}
+
 export const POST: APIRoute = async ({ request }) => {
   const body = await request.json().catch(() => null);
 
@@ -28,6 +32,26 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const { url, nombre = '', email = '', empresa = '' } = body;
+
+  // Validación server-side — rechaza leads con datos inválidos
+  if (!email || !isValidEmail(email)) {
+    return new Response(JSON.stringify({ error: 'Email inválido' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  if (!nombre || nombre.trim().length < 2) {
+    return new Response(JSON.stringify({ error: 'Nombre requerido' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  if (!empresa || empresa.trim().length < 2) {
+    return new Response(JSON.stringify({ error: 'Empresa requerida' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
   const encoder = new TextEncoder();
 
@@ -45,12 +69,9 @@ export const POST: APIRoute = async ({ request }) => {
         send('progress', { step: 1, label: 'Revisando UX y estructura...' });
         const scraped = await scrapeUrl(url);
 
-        // ── Paso 2: Tracking + Ads en paralelo ─────────────────────────────
-        send('progress', { step: 2, label: 'Revisando publicidad activa y medición...' });
-        const [tracking, adsResult] = await Promise.all([
-          Promise.resolve(detectTracking(scraped.html)),
-          detectMetaAds(empresa, url),
-        ]);
+        // ── Paso 2: Tracking ───────────────────────────────────────────────
+        send('progress', { step: 2, label: 'Revisando medición y seguimiento...' });
+        const tracking = detectTracking(scraped.html);
 
         // ── Paso 3: Preparando análisis SEO ────────────────────────────────
         send('progress', { step: 3, label: 'Evaluando posicionamiento en Google...' });
@@ -58,7 +79,7 @@ export const POST: APIRoute = async ({ request }) => {
 
         // ── Paso 4: Llamada a Claude ────────────────────────────────────────
         send('progress', { step: 4, label: 'Armando el panorama completo de tu marca...' });
-        const analysis = await analyzeWithClaude(scraped, tracking, adsResult);
+        const analysis = await analyzeWithClaude(scraped, tracking);
 
         // ── Guardar lead ────────────────────────────────────────────────────
         await saveLead({
@@ -75,7 +96,7 @@ export const POST: APIRoute = async ({ request }) => {
         });
 
         // ── Enviar resultado final ──────────────────────────────────────────
-        send('result', { ...analysis, ads: adsResult });
+        send('result', analysis);
 
       } catch (err) {
         const message =
