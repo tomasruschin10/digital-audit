@@ -16,3 +16,5 @@ dist/
 
 # Leads guardados localmente (datos, no código)
 leads.json
+.vercel
+dist
