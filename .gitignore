@@ -1,0 +1,18 @@
+# Claves y variables de entorno — NUNCA subir
+.env
+.env.*
+!.env.example
+
+# Dependencias
+node_modules/
+
+# Builds
+dist/
+.astro/
+
+# Logs y basura del sistema
+*.log
+.DS_Store
+
+# Leads guardados localmente (datos, no código)
+leads.json
